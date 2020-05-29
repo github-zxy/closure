@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>closure</title>
+</head>
+
+<body>
+    <div>
+        <ul class="nav">
+            <li>小米</li>
+            <li>华为</li>
+            <li>荣耀</li>
+            <li>三星</li>
+        </ul>
+    </div>
+    <script>
+        //获取元素
+        var lis = document.querySelector('.nav').querySelectorAll('li')
+        //动态添加属性的方式
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].index = i
+            lis[i].onclick = function () {
+                console.log(this.index);
+            }
+        }
+        //利用闭包的方式,创建好循环步骤,然后使用立即循环函数,把传过来的数值就可以打印
+        //利用for循环创建4个立即执行函数
+        //立即执行函数也是一个小闭包(closure)因为立即执行函数里面的任何一个函数都可以使用它的i这变量
+        for (var i = 0; i < lis.length; i++) {
+            (function (i) {
+                lis[i].onclick = function () {
+                    console.log(i);
+                }
+            })(i)
+        }
+    </script>
+</body>
+
+</html>
